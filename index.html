@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestro Universo - Secciones Especiales</title>
+    <style>
+        /* --- ESTILOS GENERALES Y FONDO GALÁCTICO --- */
+        body {
+            background: radial-gradient(circle at center, #140727 0%, #05020a 70%, #000000 100%);
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+                radial-gradient(#70e000, rgba(112,224,0,.1) 1px, transparent 30px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 20px);
+            background-size: 550px 550px, 350px 350px, 250px 250px;
+            background-position: 0 0, 40px 60px, 130px 270px;
+            opacity: 0.25;
+            z-index: -1;
+        }
+
+        .contenedor-principal {
+            width: 100%;
+            max-width: 950px;
+            z-index: 1;
+        }
+
+        /* --- SISTEMA DE PESTAÑAS (TABS) --- */
+        .menu-pestañas {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            border-bottom: 2px solid #2b1810; 
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+
+        .pestaña {
+            background-color: #2b1810; 
+            color: #a0a0a0;
+            border: none;
+            padding: 10px 20px;
+            font-weight: bold;
+            cursor: pointer;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .pestaña:hover {
+            background-color: #1f110b;
+            color: #ffffff;
+        }
+
+        .pestaña.activa {
+            background-color: #3a1d5d; 
+            color: #70e000; 
+            box-shadow: 0 -2px 8px rgba(112, 224, 0, 0.2);
+        }
+
+        .contenido-pestaña {
+            display: none;
+            padding: 15px 0;
+        }
+
+        .contenido-pestaña.activo {
+            display: block;
+        }
+
+        /* --- ENCABEZADO --- */
+        .encabezado {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .decoracion {
+            color: #3a1d5d;
+            font-size: 14px;
+            letter-spacing: 2px;
+        }
+
+        .titulo {
+            color: #70e000;
+            font-family: 'Georgia', serif;
+            font-style: italic;
+            font-size: 28px;
+            margin: 5px 0;
+            text-shadow: 0 0 10px rgba(112, 224, 0, 0.3);
+        }
+
+        /* --- ESTRUCTURA GENERAL DE DOS COLUMNAS --- */
+        .seccion-flex {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .columna-izquierda-bloques {
+            flex: 1;
+            min-width: 320px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .columna-foto {
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        .marco-foto {
+            border: 3px solid #2b1810; 
+            padding: 8px;
+            background-color: #140c1f; 
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), 0 0 15px rgba(58, 29, 93, 0.4);
+            width: 100%;
+            box-sizing: border-box;
+            transition: transform 0.3s ease;
+        }
+
+        .marco-foto:hover {
+            transform: scale(1.02);
+        }
+
+        .marco-foto img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+            background-color: #0d0d0d; 
+        }
+
+        /* --- EFECTO DE RESALTE (GLOW) --- */
+        .bloque-carta-individual, .bloque-meta-seccion, .item-meta, .tarjeta-cancion, .bloque-ruleta-seccion, .bloque-dedicatoria {
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .bloque-carta-individual:hover, .bloque-carta-individual:active,
+        .bloque-meta-seccion:hover, .bloque-meta-seccion:active,
+        .tarjeta-cancion:hover, .tarjeta-cancion:active,
+        .bloque-ruleta-seccion:hover, .bloque-ruleta-seccion:active,
+        .bloque-dedicatoria:hover {
+            border-color: #70e000 !important;
+            box-shadow: 0 0 15px rgba(112, 224, 0, 0.4), inset 0 0 10px rgba(112, 224, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .item-meta:hover, .item-meta:active {
+            border-left-color: #70e000 !important;
+            background-color: #11091c !important;
+            box-shadow: 0 0 8px rgba(112, 224, 0, 0.2);
+        }
+
+        /* --- DISEÑO DE LAS CARTAS (PESTAÑA 1) --- */
+        .bloque-carta-individual {
+            border: 2px solid #2b1810; 
+            border-radius: 8px;
+            background-color: #140c1f; 
+            padding: 15px;
+        }
+
+        .subtitulo-carta {
+            color: #70e000;
+            font-size: 17px;
+            margin: 0 0 10px 0;
+        }
+
+        .texto-carta {
+            background-color: #0d0d0d;
+            border: 1px solid rgba(112, 224, 0, 0.1);
+            color: #e0e0e0;
+            width: 100%;
+            height: 200px; 
+            padding: 12px;
+            box-sizing: border-box;
+            resize: vertical; 
+            font-size: 15px;
+            line-height: 1.6;
+            border-radius: 4px;
+            outline: none;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+        
+        .bloque-carta-individual:hover .texto-carta {
+            border-color: rgba(112, 224, 0, 0.3);
+        }
+
+        /* --- DISEÑO DE METAS (PESTAÑA 2) --- */
+        .bloque-meta-seccion {
+            border: 2px solid #2b1810;
+            background-color: #140c1f;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .subtitulo-meta {
+            color: #70e000;
+            font-family: 'Georgia', serif;
+            font-style: italic;
+            font-size: 20px;
+            margin: 0 0 15px 0;
+            border-bottom: 1px dashed #3a1d5d;
+            padding-bottom: 8px;
+        }
+
+        .lista-metas {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .item-meta {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            background-color: #0d0d0d;
+            padding: 12px;
+            border-radius: 6px;
+            border-left: 3px solid #3a1d5d;
+        }
+
+        .check-meta { color: #70e000; font-weight: bold; }
+        .texto-meta-detallado { margin: 0; font-size: 14px; color: #e0e0e0; }
+
+        /* --- DISEÑO DE CANCIONES (PESTAÑA 3) --- */
+        .bloque-dedicatoria {
+            background-color: #140c1f;
+            border: 2px solid #2b1810;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        .texto-dedicatoria {
+            color: #e0e0e0;
+            font-size: 14px;
+            line-height: 1.5;
+            margin: 0;
+            font-style: italic;
+        }
+
+        .tarjeta-cancion {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #140c1f;
+            border: 2px solid #2b1810;
+            border-radius: 10px;
+            padding: 12px 18px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+            cursor: pointer;
+        }
+
+        .info-cancion {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .titulo-cancion {
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .artista-cancion {
+            color: #a0a0a0;
+            font-size: 12px;
+            margin: 0;
+        }
+
+        .btn-spotify {
+            background-color: #1ed760; 
+            color: #000000;
+            border: none;
+            border-radius: 50px;
+            padding: 8px 16px;
+            font-size: 13px;
+            font-weight: bold;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 12px rgba(30, 215, 96, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .btn-spotify:hover {
+            background-color: #1fdf64;
+            transform: scale(1.05);
+            box-shadow: 0 6px 18px rgba(30, 215, 96, 0.4);
+        }
+
+        #foto-dinamica-canciones {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+            background-color: #0d0d0d; 
+            transition: opacity 0.3s ease;
+        }
+
+        /* --- DISEÑO DE LA PESTAÑA 4: VIDEOJUEGO --- */
+        .contenedor-juego-bloque {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .marco-foto-horizontal {
+            width: 100%;
+            max-width: 750px; 
+            border: 3px solid #2b1810;
+            padding: 8px;
+            background-color: #140c1f;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.5);
+            box-sizing: border-box;
+        }
+
+        .marco-foto-horizontal img {
+            width: 100%;
+            height: auto;
+            max-height: 280px; 
+            object-fit: cover; 
+            border-radius: 6px;
+            display: block;
+        }
+
+        .pantalla-juego-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        canvas {
+            background-color: #0a0412;
+            border: 3px solid #3a1d5d;
+            border-radius: 10px;
+            display: block;
+            width: 100%;
+            box-shadow: 0 0 15px rgba(112, 224, 0, 0.15);
+        }
+
+        .marcador-juego {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #70e000;
+            margin-bottom: 5px;
+            text-shadow: 0 0 5px rgba(112,224,0,0.4);
+        }
+
+        .controles-movil {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .btn-control-juego {
+            flex: 1;
+            background: linear-gradient(135deg, #2b1810 0%, #1f110b 100%);
+            border: 2px solid #3a1d5d;
+            color: #ffffff;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 12px;
+            cursor: pointer;
+            user-select: none;
+            touch-action: manipulation;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        .btn-control-juego:active {
+            background: #3a1d5d;
+            border-color: #70e000;
+            color: #70e000;
+            box-shadow: 0 0 15px rgba(112, 224, 0, 0.4);
+            transform: scale(0.98);
+        }
+
+        /* --- OVERLAY PROPUESTA --- */
+        .overlay-propuesta {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(10, 4, 18, 0.95);
+            border-radius: 10px;
+            display: none; 
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            border: 3px solid #70e000;
+            box-shadow: 0 0 30px rgba(112, 224, 0, 0.4);
+            animation: aparecerFondo 0.5s ease forwards;
+            z-index: 10;
+        }
+
+        .titulo-propuesta {
+            color: #70e000;
+            font-family: 'Georgia', serif;
+            font-style: italic;
+            font-size: 26px;
+            margin-bottom: 25px;
+            text-shadow: 0 0 10px rgba(112, 224, 0, 0.5);
+        }
+
+        .contenedor-anillo {
+            position: relative;
+            width: 100px;
+            height: 130px;
+            margin-bottom: 20px;
+            animation: flotarAnillo 3s ease-in-out infinite;
+        }
+
+        .diamante {
+            width: 0; height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 25px solid #00b4d8; 
+            position: absolute;
+            top: 10px; left: 30px;
+            z-index: 2;
+        }
+        .diamante::after {
+            content: '';
+            position: absolute;
+            width: 0; height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 15px solid #90e0ef; 
+            top: 25px; left: -20px;
+        }
+
+        .anillo-cuerpo {
+            width: 60px;
+            height: 60px;
+            border: 8px solid #0077b6; 
+            border-radius: 50%;
+            position: absolute;
+            top: 32px; left: 12px;
+            box-shadow: 0 0 15px rgba(0, 180, 216, 0.6);
+        }
+
+        .btn-propuesta-si {
+            background-color: #70e000;
+            color: #000000;
+            border: none;
+            padding: 10px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(112, 224, 0, 0.4);
+            transition: all 0.3s ease;
+        }
+        .btn-propuesta-si:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 22px rgba(112, 224, 0, 0.6);
+        }
+
+        @keyframes flotarAnillo {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @keyframes aparecerFondo {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* --- 🔮 ESTILOS PESTAÑA 5: RULETA DE CITAS --- */
+        .bloque-ruleta-seccion {
+            border: 2px solid #2b1810;
+            background-color: #140c1f;
+            border-radius: 12px;
+            padding: 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .contenedor-ruleta-interactiva {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .pantalla-resultado-ruleta {
+            width: 100%;
+            max-width: 450px;
+            background-color: #0d0d0d;
+            border: 2px solid #3a1d5d;
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255,255,255,0.2);
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.8);
+            transition: all 0.3s ease;
+            min-height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pantalla-resultado-ruleta.ganador {
+            color: #70e000;
+            border-color: #70e000;
+            text-shadow: 0 0 15px rgba(112, 224, 0, 0.6);
+            animation: aparecerFondo 0.3s ease;
+        }
+
+        .grupo-botones-ruleta {
+            display: flex;
+            gap: 15px;
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .btn-girar-ruleta {
+            flex: 2;
+            background: linear-gradient(135deg, #70e000 0%, #52a300 100%);
+            color: #000000;
+            border: none;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(112, 224, 0, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .btn-girar-ruleta:hover:not(:disabled) {
+            transform: scale(1.02);
+            box-shadow: 0 6px 20px rgba(112, 224, 0, 0.5);
+        }
+
+        .btn-girar-ruleta:disabled {
+            background: #2a2a2a;
+            color: #666666;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .btn-reiniciar-ruleta {
+            flex: 1;
+            background-color: #140c1f;
+            color: #a0a0a0;
+            border: 2px solid #2b1810;
+            padding: 15px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-reiniciar-ruleta:hover {
+            color: #ffffff;
+            border-color: #3a1d5d;
+            background-color: #1b0f2b;
+        }
+
+        .lista-opciones-estado {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .opcion-tarjeta {
+            background-color: #0d0d0d;
+            border: 1px solid #2b1810;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            text-align: center;
+            color: #e0e0e0;
+            transition: all 0.3s ease;
+        }
+
+        .opcion-tarjeta.bloqueada {
+            text-decoration: line-through;
+            color: #555555;
+            border-color: #1a100b;
+            background-color: rgba(5, 2, 10, 0.6);
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="contenedor-principal">
+        
+        <!-- Botones de las Pestañas -->
+        <div class="menu-pestañas">
+            <button class="pestaña activa" onclick="cambiarPestaña(event, 'cartas')">💌 Mis Cartas</button>
+            <button class="pestaña" onclick="cambiarPestaña(event, 'metas')">🚀 Metas</button>
+            <button class="pestaña" onclick="cambiarPestaña(event, 'canciones')">🎵 Canciones</button>
+            <button class="pestaña" onclick="cambiarPestaña(event, 'juego')">🕹️ Juego</button>
+            <button class="pestaña" onclick="cambiarPestaña(event, 'citas')">🔮 Citas</button>
+        </div>
+
+        <!-- PESTAÑA 1: MIS CARTAS -->
+        <div id="cartas" class="contenido-pestaña activo">
+            <div class="encabezado">
+                <div class="decoracion">✦ ─────────────────────────── ✦</div>
+                <h1 class="titulo">Lo que dictan mis latidos</h1>
+            </div>
+
+            <div class="seccion-flex">
+                <div class="columna-izquierda-bloques">
+                    <div class="bloque-carta-individual">
+                        <h2 class="subtitulo-carta">✍︎ Cuánto te amo...</h2>
+                        <textarea class="texto-carta" readonly>Quiero recordarte cada día lo inmenso y profundo que es este sentimiento que tengo por ti. Te amo con todas mis fuerzas, eres mi razón de ser entera y me haces muimui feliz con el simple hecho de existir y estar a mi lado. Para mí, tú representas el amor más puro, noble y sincero que tengo en este mundo. Estar contigo le da un sentido mágico a todo lo que me rodea y no hay nada más bonito que compartir mi vida contigo.</textarea>
+                    </div>
+                    
+                    <div class="bloque-carta-individual">
+                        <h2 class="subtitulo-carta">🔮 Lo que significas en mi vida...</h2>
+                        <textarea class="texto-carta" readonly>Tú eres muchísimo más que mi novia; eres, sin duda alguna, el amor de mi vida entera. Te has convertido en mi gran motor, mi razón de ser, el motivo de mis días y de cada uno de mis esfuerzos. Eres esa luz y la razón principal por la que siempre decido salir adelante ante cualquier obstáculo. Inspiras cada uno de mis pasos y lo que significas para mí va mucho más allá de lo que las palabras pueden explicar: eres mi paz, mi refugio y mi universo entero.</textarea>
+                    </div>
+                </div>
+
+                <div class="columna-foto">
+                    <div class="marco-foto">
+                        <img src="foto_con_ella.jpg" alt="Nuestra Foto Especial">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PESTAÑA 2: METAS -->
+        <div id="metas" class="contenido-pestaña">
+            <div class="encabezado">
+                <div class="decoracion">✦ ─────────────────────────── ✦</div>
+                <h1 class="titulo">Nuestros Próximos Horizontes</h1>
+            </div>
+
+            <div class="seccion-flex">
+                <div class="columna-izquierda-bloques">
+                    <div class="bloque-meta-seccion">
+                        <h2 class="subtitulo-meta">✨ Mis metas a tu lado</h2>
+                        <ul class="lista-metas">
+                            <li class="item-meta">
+                                <span class="check-meta">✓</span>
+                                <p class="texto-meta-detallado">Hacerte sonreír cada día y asegurarme de que nunca olvides lo valiosa, hermosa y especial que eres.</p>
+                            </li>
+                            <li class="item-meta">
+                                <span class="check-meta">✓</span>
+                                <p class="texto-meta-detallado">Ser tu apoyo incondicional en cada examen, proyecto y paso de tu carrera, celebrando juntos tus éxitos.</p>
+                            </li>
+                            <li class="item-meta">
+                                <span class="check-meta">✓</span>
+                                <p class="texto-meta-detallado">Construir juntos un camino sólido que nos lleve a cumplir el hermoso sueño de formar nuestra propia familia en el futuro.</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bloque-meta-seccion">
+                        <h2 class="subtitulo-meta">🚀 Lo que quiero que logremos</h2>
+                        <ul class="lista-metas">
+                            <li class="item-meta">
+                                <span class="check-meta">✓</span>
+                                <p class="texto-meta-detallado">Crecer juntos en lo personal y profesional, esforzándonos al máximo para llegar a ser una familia súper exitosa, unida y llena de logros, oshioshi.</p>
+                            </li>
+                            <li class="item-meta">
+                                <span class="check-meta">✓</span>
+                                <p class="texto-meta-detallado">Construir recuerdos inolvidables, viajar a lugares nuevos y tomar cientos de fotos que llenen nuestro universo.</p>
+                            </li>
+                            <li class="item-meta">
+                                <span class="check-meta">✓</span>
+                                <p class="texto-meta-detallado">Cumplir cada pequeña promesa que nos hagamos y demostrar que somos el equipo perfecto para toda la vida.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="columna-foto">
+                    <div class="marco-foto">
+                        <img src="foto_metas.jpg" alt="Foto para nuestro futuro">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PESTAÑA 3: CANCIONES -->
+        <div id="canciones" class="contenido-pestaña">
+            <div class="encabezado">
+                <div class="decoracion">✦ ─────────────────────────── ✦</div>
+                <h1 class="titulo">La Banda Sonora de Nuestra Historia</h1>
+            </div>
+
+            <div class="seccion-flex">
+                <div class="columna-izquierda-bloques">
+                    <!-- Nueva Tarjeta de Dedicatoria -->
+                    <div class="bloque-dedicatoria">
+                        <p class="texto-dedicatoria">✨ Te dedico cada una de estas canciones porque el amor siempre hablará de ti... Eres, sin duda alguna, el amor de mi vida entera. 🌌</p>
+                    </div>
+
+                    <div class="tarjeta-cancion" onmouseenter="cambiarFotoCancion('cancion1.jpg')">
+                        <div class="info-cancion"><p class="titulo-cancion">Baila Mi Corazón</p><p class="artista-cancion">Belanova</p></div>
+                        <a href="https://open.spotify.com/intl-es/track/0GB4zJkbXdXBbdJPgudwDx?si=7e733a3d256142c8" target="_blank" class="btn-spotify">▶ Escuchar</a>
+                    </div>
+                    <div class="tarjeta-cancion" onmouseenter="cambiarFotoCancion('cancion2.jpg')">
+                        <div class="info-cancion"><p class="titulo-cancion">Sacrifice</p><p class="artista-cancion">London After Midnight</p></div>
+                        <a href="https://open.spotify.com/intl-es/track/4EJjwH5VKFYfhjji1lDmiH?si=13f28a49b8504444" target="_blank" class="btn-spotify">▶ Escuchar</a>
+                    </div>
+                    <div class="tarjeta-cancion" onmouseenter="cambiarFotoCancion('cancion3.jpg')">
+                        <div class="info-cancion"><p class="titulo-cancion">Just the Way You Are</p><p class="artista-cancion">Pierce The Veil</p></div>
+                        <a href="https://open.spotify.com/intl-es/track/5d6nTdahyEnH1TILFC0Tp3?si=e1e2e7ff618b41f2" target="_blank" class="btn-spotify">▶ Escuchar</a>
+                    </div>
+                    <div class="tarjeta-cancion" onmouseenter="cambiarFotoCancion('cancion4.jpg')">
+                        <div class="info-cancion"><p class="titulo-cancion">No Puedo Más</p><p class="artista-cancion">Pedro Infante</p></div>
+                        <a href="https://open.spotify.com/intl-es/track/5XtDTpidG2BFu5fofORYEa?si=f7c51ebcb7fa4470" target="_blank" class="btn-spotify">▶ Escuchar</a>
+                    </div>
+                    <div class="tarjeta-cancion" onmouseenter="cambiarFotoCancion('cancion5.jpg')">
+                        <div class="info-cancion"><p class="titulo-cancion">Si Nos Dejan</p><p class="artista-cancion">Los Tres Ases</p></div>
+                        <a href="https://open.spotify.com/intl-es/track/3wYjxD3Fk1HKLksNIijm0d?si=169fedbd713f4759" target="_blank" class="btn-spotify">▶ Escuchar</a>
+                    </div>
+                </div>
+                <div class="columna-foto">
+                    <div class="marco-foto">
+                        <img id="foto-dinamica-canciones" src="cancion1.jpg" alt="Musica">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PESTAÑA 4: JUEGO -->
+        <div id="juego" class="contenido-pestaña">
+            <div class="encabezado">
+                <div class="decoracion">✦ ─────────────────────────── ✦</div>
+                <h1 class="titulo">Atrapa Nuestro Amor</h1>
+            </div>
+
+            <div class="contenedor-juego-bloque">
+                <div class="marco-foto-horizontal">
+                    <img src="foto_juego_horizontal.jpg" alt="Nuestra Foto Especial Horizontal">
+                </div>
+
+                <div class="pantalla-juego-wrapper">
+                    <div class="marcador-juego">Puntos: <span id="score-val">0</span> / 100</div>
+                    <canvas id="canvasJuego" width="600" height="350"></canvas>
+
+                    <div class="overlay-propuesta" id="overlayPropuesta">
+                        <h2 class="titulo-propuesta">¡Nivel Completado!<br><br>¿Te quieres casar conmigo? oshioshi</h2>
+                        
+                        <div class="contenedor-anillo">
+                            <div class="diamante"></div>
+                            <div class="anillo-cuerpo"></div>
+                        </div>
+
+                        <button class="btn-propuesta-si" onclick="alert('¡Dijo que SÍ! 💖 El universo entero celebra nuestro amor.')">¡SÍ! 🌌</button>
+                    </div>
+
+                    <div class="controles-movil">
+                        <button class="btn-control-juego" id="btn-izq">⬅️ Izquierda</button>
+                        <button class="btn-control-juego" id="btn-der">Derecha ➡️</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 🔮 PESTAÑA 5: CITAS -->
+        <div id="citas" class="contenido-pestaña">
+            <div class="encabezado">
+                <div class="decoracion">✦ ─────────────────────────── ✦</div>
+                <h1 class="titulo">Nuestra Próxima Cita</h1>
+            </div>
+
+            <div class="seccion-flex">
+                <!-- Columna Izquierda: Ruleta y Destinos -->
+                <div class="columna-izquierda-bloques">
+                    <div class="bloque-ruleta-seccion">
+                        <h2 class="subtitulo-meta" style="text-align: center;">🎲 ¿Qué haremos hoy? oshioshi</h2>
+                        
+                        <div class="contenedor-ruleta-interactiva">
+                            <!-- Pantalla de Resultados -->
+                            <div class="pantalla-resultado-ruleta" id="pantallaRuleta">¿Qué nos deparará el destino? ✨</div>
+                            
+                            <!-- Botonera -->
+                            <div class="grupo-botones-ruleta">
+                                <button class="btn-girar-ruleta" id="btnGirar" onclick="girarRuleta()">🌌 Girar Ruleta</button>
+                                <button class="btn-reiniciar-ruleta" onclick="reiniciarRuleta()">🔄 Reiniciar</button>
+                            </div>
+                        </div>
+
+                        <!-- Panel de control de estados -->
+                        <h3 style="font-size:14px; color:#70e000; margin: 20px 0 10px 0; font-family:'Georgia', serif; font-style:italic;">Lista de Destinos:</h3>
+                        <div class="lista-opciones-estado" id="contenedorOpcionesVisuales">
+                            <!-- Inyección JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Columna Derecha: Foto Especial de Citas -->
+                <div class="columna-foto">
+                    <div class="marco-foto">
+                        <img src="foto_citas.jpg" alt="Nuestra próxima aventura juntos">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function cambiarPestaña(evento, idPestaña) {
+            const contenidos = document.getElementsByClassName("contenido-pestaña");
+            for (let i = 0; i < contenidos.length; i++) { contenidos[i].classList.remove("activo"); }
+            const pestañas = document.getElementsByClassName("pestaña");
+            for (let i = 0; i < pestañas.length; i++) { pestañas[i].classList.remove("activa"); }
+            document.getElementById(idPestaña).classList.add("activo");
+            evento.currentTarget.classList.add("activa");
+
+            if(idPestaña === 'juego') { iniciarVideojuego(); }
+            if(idPestaña === 'citas') { inicializarSeccionRuleta(); }
+        }
+
+        function cambiarFotoCancion(nombreArchivoFoto) {
+            const imgElement = document.getElementById("foto-dinamica-canciones");
+            imgElement.style.opacity = 0.3;
+            setTimeout(() => { imgElement.src = nombreArchivoFoto; imgElement.style.opacity = 1; }, 150);
+        }
+
+        // --- LÓGICA DE LA RULETA DE CITAS CON MEMORIA ---
+        const planesOriginales = [
+            "🎬 Tarde de Películas",
+            "🍕 Salir a Comer",
+            "🎮 Jugar Roblox",
+            "🎟️ Ir al Cine",
+            "📞 Tarde de Llamaditas",
+            "💤 Dormir Juntitos"
+        ];
+
+        function obtenerPlanesUsados() {
+            const guardados = localStorage.getItem("planesRuletaUsados");
+            return guardados ? JSON.parse(guardados) : [];
+        }
+
+        function inicializarSeccionRuleta() {
+            const usados = obtenerPlanesUsados();
+            const contenedor = document.getElementById("contenedorOpcionesVisuales");
+            contenedor.innerHTML = "";
+
+            planesOriginales.forEach((plan) => {
+                const tarjeta = document.createElement("div");
+                tarjeta.className = "opcion-tarjeta";
+                tarjeta.innerText = plan;
+                if (usados.includes(plan)) {
+                    tarjeta.classList.add("bloqueada");
+                }
+                contenedor.appendChild(tarjeta);
+            });
+
+            const btnGirar = document.getElementById("btnGirar");
+            const pantalla = document.getElementById("pantallaRuleta");
+            
+            if (usados.length >= planesOriginales.length) {
+                pantalla.innerText = "¡Ya completaron todas las citas! 🥰 Resetea para volver a jugar.";
+                pantalla.classList.remove("ganador");
+                btnGirar.disabled = true;
+            } else {
+                btnGirar.disabled = false;
+            }
+        }
+
+        function girarRuleta() {
+            const usados = obtenerPlanesUsados();
+            const disponibles = planesOriginales.filter(p => !usados.includes(p));
+
+            if (disponibles.length === 0) return;
+
+            const btnGirar = document.getElementById("btnGirar");
+            const pantalla = document.getElementById("pantallaRuleta");
+            btnGirar.disabled = true;
+            pantalla.classList.remove("ganador");
+
+            let iteraciones = 0;
+            const maxIteraciones = 15; 
+            
+            const intervaloGiro = setInterval(() => {
+                const opcionAleatoriaTemporal = planesOriginales[Math.floor(Math.random() * planesOriginales.length)];
+                pantalla.innerText = `✨ ${opcionAleatoriaTemporal} ✨`;
+                iteraciones++;
+
+                if (iteraciones >= maxIteraciones) {
+                    clearInterval(intervaloGiro);
+                    
+                    const ganadorDefinitivo = disponibles[Math.floor(Math.random() * disponibles.length)];
+                    pantalla.innerText = `🎉 ¡Toca: ${ganadorDefinitivo}! 💖`;
+                    pantalla.classList.add("ganador");
+
+                    usados.push(ganadorDefinitivo);
+                    localStorage.setItem("planesRuletaUsados", JSON.stringify(usados));
+
+                    inicializarSeccionRuleta();
+                }
+            }, 120);
+        }
+
+        function reiniciarRuleta() {
+            if(confirm("¿Quieres restablecer la ruleta para poder usar todas las opciones de cita otra vez?")) {
+                localStorage.removeItem("planesRuletaUsados");
+                document.getElementById("pantallaRuleta").innerText = "¿Qué nos deparará el destino? ✨";
+                document.getElementById("pantallaRuleta").classList.remove("ganador");
+                inicializarSeccionRuleta();
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            inicializarSeccionRuleta();
+        });
+
+
+        // --- CÓDIGO DEL VIDEOJUEGO ---
+        let juegoIniciado = false;
+        function iniciarVideojuego() {
+            if(juegoIniciado) return; 
+            juegoIniciado = true;
+
+            const canvas = document.getElementById("canvasJuego");
+            const ctx = canvas.getContext("2d");
+            const scoreVal = document.getElementById("score-val");
+            const overlay = document.getElementById("overlayPropuesta");
+
+            let score = 0;
+            let juegoTerminado = false;
+
+            const basket = { width: 80, height: 15, x: canvas.width / 2 - 40, y: canvas.height - 25 };
+            let mouseX = canvas.width / 2;
+
+            canvas.addEventListener('mousemove', (e) => {
+                const rect = canvas.getBoundingClientRect();
+                mouseX = (e.clientX - rect.left) * (canvas.width / rect.width);
+            });
+
+            const btnIzq = document.getElementById("btn-izq");
+            const btnDer = document.getElementById("btn-der");
+            let moverIzq = false;
+            let moverDer = false;
+
+            btnIzq.addEventListener("mousedown", () => moverIzq = true);
+            btnIzq.addEventListener("mouseup", () => moverIzq = false);
+            btnIzq.addEventListener("touchstart", (e) => { e.preventDefault(); moverIzq = true; });
+            btnIzq.addEventListener("touchend", () => moverIzq = false);
+
+            btnDer.addEventListener("mousedown", () => moverDer = true);
+            btnDer.addEventListener("mouseup", () => moverDer = false);
+            btnDer.addEventListener("touchstart", (e) => { e.preventDefault(); moverDer = true; });
+            btnDer.addEventListener("touchend", () => moverDer = false);
+
+            let items = [];
+            function crearItem() {
+                if (juegoTerminado) return;
+                const tipos = ['❤️', '⭐', '✨'];
+                const tipo = tipos[Math.floor(Math.random() * tipos.length)];
+                items.push({
+                    x: Math.random() * (canvas.width - 30) + 15,
+                    y: -20,
+                    size: 20,
+                    speed: Math.random() * 2 + 2,
+                    label: tipo
+                });
+                setTimeout(crearItem, Math.random() * 800 + 600); 
+            }
+            crearItem();
+
+            function loop() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                if (!juegoTerminado) {
+                    if (moverIzq) { mouseX -= 7; } 
+                    else if (moverDer) { mouseX += 7; }
+
+                    basket.x = mouseX - basket.width / 2;
+                    if(basket.x < 0) { basket.x = 0; mouseX = basket.width / 2; }
+                    if(basket.x + basket.width > canvas.width) { basket.x = canvas.width - basket.width; mouseX = canvas.width - basket.width / 2; }
+
+                    ctx.fillStyle = "#3a1d5d";
+                    ctx.beginPath();
+                    ctx.roundRect(basket.x, basket.y, basket.width, basket.height, 5);
+                    ctx.fill();
+                    ctx.lineWidth = 2;
+                    ctx.strokeStyle = "#70e000"; 
+                    ctx.stroke();
+
+                    for (let i = items.length - 1; i >= 0; i--) {
+                        let item = items[i];
+                        item.y += item.speed;
+
+                        ctx.font = `${item.size}px Arial`;
+                        ctx.textAlign = "center";
+                        ctx.fillText(item.label, item.x, item.y);
+
+                        if (item.y + 5 >= basket.y && item.y - 15 <= basket.y + basket.height &&
+                            item.x >= basket.x && item.x <= basket.x + basket.width) {
+                            
+                            score += 10;
+                            scoreVal.innerText = score;
+                            items.splice(i, 1); 
+
+                            if (score >= 100) {
+                                juegoTerminado = true;
+                                overlay.style.display = "flex"; 
+                            }
+                            continue;
+                        }
+
+                        if (item.y > canvas.height + 20) { items.splice(i, 1); }
+                    }
+
+                    requestAnimationFrame(loop);
+                }
+            }
+            requestAnimationFrame(loop);
+        }
+    </script>
+</body>
+</html>
